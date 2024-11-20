@@ -69,7 +69,7 @@ jobs:
         run: git checkout nightly
 
       - name: Merge it
-        run: git merge --no-ff ${{ github.head_ref }} -m "Merge changes from development to nightly"
+        run: git merge --no-ff ${{ github.head_ref }} -m "Merge changes from development to nightly" development
 
       - name: Push branch
         run: git push origin nightly
