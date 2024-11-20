@@ -6,6 +6,8 @@ import me.elordenador.barajadecartas.tipos.Espanola;
 import me.elordenador.barajadecartas.tipos.Poker;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class CartaTest {
 
     @Test
@@ -99,5 +101,25 @@ public class CartaTest {
 
         }
         System.out.println("pokerIllegalMax -> SUCCESS");
+    }
+
+    @Test
+    public void setterTest() throws NoEnLaBaraja {
+        Carta carta = new Carta(6, Espanola.OROS, Tipo.ESPANOLA);
+
+        carta.setTipo(Tipo.ALEMANA);
+        carta.setValor(7);
+        carta.setPalo(Alemana.BELLOTAS);
+        System.out.println("setterTest -> SUCCESS");
+    }
+
+    @Test
+    public void getterTest() throws NoEnLaBaraja {
+        Carta carta = new Carta(6, Espanola.OROS, Tipo.ESPANOLA);
+
+        assertEquals(6, carta.getValor());
+        assertEquals(Espanola.OROS, carta.getPalo());
+        assertEquals(Tipo.ESPANOLA, carta.getTipo());
+        System.out.println("getterTest -> SUCCESS");
     }
 }
