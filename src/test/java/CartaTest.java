@@ -110,6 +110,7 @@ public class CartaTest {
         carta.setTipo(Tipo.ALEMANA);
         carta.setValor(7);
         carta.setPalo(Alemana.BELLOTAS);
+        System.out.println("setterTest -> SUCCESS");
     }
 
     @Test
@@ -119,5 +120,6 @@ public class CartaTest {
         assertEquals(6, carta.getValor());
         assertEquals(Espanola.OROS, carta.getPalo());
         assertEquals(Tipo.ESPANOLA, carta.getTipo());
+        System.out.println("getterTest -> SUCCESS");
     }
 }
