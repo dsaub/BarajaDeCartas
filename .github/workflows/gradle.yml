@@ -65,8 +65,11 @@ jobs:
         run: git fetch --all
 
       # Fusionar cambios a la rama 'nightly'
-      - name: Merge to nightly
-        run: |
-          git checkout nightly
-          git merge --no-ff ${{ github.head_ref }} -m "Merge changes from development to nightly"
-          git push origin nightly
+      - name: Checkout to nightly
+        run: git checkout nightly
+
+      - name: Merge it
+        run: git merge --no-ff ${{ github.head_ref }} -m "Merge changes from development to nightly"
+
+      - name: Push branch
+        run: git push origin nightly
