@@ -33,4 +33,26 @@ public class Carta {
         this.palo = palo;
         this.tipo = tipo;
     }
+
+    public void setValor(int valor) {
+        this.valor = valor;
+    }
+
+    public int getValor() {
+        return valor;
+    }
+
+    public void setPalo(String palo) {
+        this.palo = palo;
+    }
+    public String getPalo() {
+        return palo;
+    }
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
+
+    }
+    public Tipo getTipo() {
+        return tipo;
+    }
 }
