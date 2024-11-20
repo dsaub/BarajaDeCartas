@@ -6,8 +6,8 @@ on:
       - development
 
 jobs:
-  test:
-    name: Run Tests
+  test_linux:
+    name: Run Tests (Linux)
     runs-on: ubuntu-latest
 
     steps:
@@ -25,10 +25,12 @@ jobs:
       # Ejecutar pruebas
       - name: Run Gradle tests
         run: ./gradlew test
-
+  test_windows:
+    name: Run Tests (Windows)
   deploy:
     name: Deploy to Nightly
-    needs: test
+    needs:
+      - test_linux
     runs-on: ubuntu-latest
     if: success()
 
