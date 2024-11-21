@@ -122,4 +122,13 @@ public class CartaTest {
         assertEquals(Tipo.ESPANOLA, carta.getTipo());
         System.out.println("getterTest -> SUCCESS");
     }
+
+    @Test
+    public void toStringTest() throws NoEnLaBaraja {
+        Carta carta = new Carta(6, Espanola.OROS, Tipo.ESPANOLA);
+        Carta carta1 = new Carta(Poker.KING, Poker.DIAMANTES, Tipo.POKER);
+        assertEquals("6 Oros", carta.toString());
+        assertEquals("K Diamantes", carta1.toString());
+
+    }
 }
