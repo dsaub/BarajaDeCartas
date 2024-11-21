@@ -55,4 +55,36 @@ public class Carta {
     public Tipo getTipo() {
         return tipo;
     }
+
+    public String toString() {
+        String string = "";
+        if (tipo == Tipo.ESPANOLA) {
+            switch (valor) {
+                case 10: string += "Sota "; break;
+                case 11: string += "Caballo "; break;
+                case 12: string += "Rey "; break;
+                default: string += valor + " "; break;
+            }
+
+            string += palo;
+        } else if (tipo == Tipo.POKER) {
+            switch (valor) {
+                case 11: string += "J "; break;
+                case 12: string += "Q "; break;
+                case 13: string += "K "; break;
+                default: string += valor + " "; break;
+            }
+
+            string += palo;
+        } else if (tipo == Tipo.ALEMANA) {
+            switch (valor) {
+                case 11: string += "Campesino "; break;
+                case 12: string += "Dama "; break;
+                case 13: string += "Rey "; break;
+                case 14: string += "As "; break;
+            }
+            string += palo;
+        }
+        return string;
+    }
 }
