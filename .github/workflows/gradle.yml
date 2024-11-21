@@ -73,3 +73,18 @@ jobs:
 
       - name: Push branch
         run: git push origin nightly
+  deploy_javadocs:
+    name: Deploy JavaDocs
+    needs:
+      - test_linux
+      - test_windows
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy JavaDOC
+        uses: MathieuSoysal/Javadoc-publisher.yml@v2.5.0
+        with:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          javadoc-branch: 'javadoc'
+          java-version: 17
+          target-folder: '.'
+          project: gradle
