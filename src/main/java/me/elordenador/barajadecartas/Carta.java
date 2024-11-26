@@ -163,6 +163,9 @@ public class Carta {
      * @return true if the values are equal, false otherwise.
      */
     public boolean equalsNumber(Carta carta) {
+        if (carta == null) {
+            return false;
+        }
         return (valor == carta.getValor());
     }
 }
