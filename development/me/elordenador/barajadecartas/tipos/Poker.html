@@ -157,6 +157,11 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Returns a numerical value corresponding to the given suit.</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getPalo(int)" class="member-name-link">getPalo</a><wbr>(int&nbsp;n)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Returns the suit of the card as a string corresponding to the given numerical value.</div>
+</div>
 </div>
 </div>
 </div>
@@ -311,6 +316,19 @@ loadScripts(document, 'script');</script>
 <dd><code>n</code> - The suit of the card as a string.</dd>
 <dt>Returns:</dt>
 <dd>An integer representing the suit: 4 for Picas, 3 for Corazones, 2 for Treboles, 1 for Diamantes, and 0 for any other value or null.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getPalo(int)">
+<h3>getPalo</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getPalo</span><wbr><span class="parameters">(int&nbsp;n)</span></div>
+<div class="block">Returns the suit of the card as a string corresponding to the given numerical value.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>n</code> - The numerical value of the suit.</dd>
+<dt>Returns:</dt>
+<dd>A string representing the suit: "Picas" for 4, "Corazones" for 3, "Treboles" for 2, "Diamantes" for 1, and null for any other value.</dd>
 </dl>
 </section>
 </li>
