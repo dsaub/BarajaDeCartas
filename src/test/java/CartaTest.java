@@ -131,4 +131,31 @@ public class CartaTest {
         assertEquals("K Diamantes", carta1.toString());
 
     }
+
+    @Test
+    public void equalsTest() throws NoEnLaBaraja {
+        Carta carta1 = new Carta(6, Espanola.OROS, Tipo.ESPANOLA);
+        Carta carta2 = new Carta(6, Espanola.OROS, Tipo.ESPANOLA);
+        assertEquals(true, carta1.equals(carta2));
+    }
+
+    @Test
+    public void equalsNumberReturnsTrueForEqualValues() throws NoEnLaBaraja {
+        Carta carta1 = new Carta(6, Espanola.OROS, Tipo.ESPANOLA);
+        Carta carta2 = new Carta(6, Espanola.ESPADAS, Tipo.ESPANOLA);
+        assertEquals(true, carta1.equalsNumber(carta2));
+    }
+
+    @Test
+    public void equalsNumberReturnsFalseForDifferentValues() throws NoEnLaBaraja {
+        Carta carta1 = new Carta(6, Espanola.OROS, Tipo.ESPANOLA);
+        Carta carta2 = new Carta(7, Espanola.ESPADAS, Tipo.ESPANOLA);
+        assertEquals(false, carta1.equalsNumber(carta2));
+    }
+
+    @Test
+    public void equalsNumberReturnsFalseForNullCard() throws NoEnLaBaraja {
+        Carta carta1 = new Carta(6, Espanola.OROS, Tipo.ESPANOLA);
+        assertEquals(false, carta1.equalsNumber(null));
+    }
 }

@@ -13,11 +13,12 @@ public class Carta {
     private Tipo tipo;
 
     /**
-     * Constructor para crear la carta
-     * @param valor El numero de la carta, puedes usar la clase Espanola/Alemana/Poker para servir el valor no-numerico mas facil.
-     * @param palo El palo de la carta. Puedes usar la clase Espanola/Alemana/Poker para servir el palo mas facil.
-     * @param tipo El tipo de carta, debe de ser del Enum me.elordenador.barajadecartas.Tipo.
-     * @throws NoEnLaBaraja Si no existe una carta de ESA baraja.
+     * Constructor for the Carta class.
+     *
+     * @param valor The value of the card.
+     * @param palo The suit of the card.
+     * @param tipo The type of the card.
+     * @throws NoEnLaBaraja if the card is not in the deck based on its value and type.
      */
     public Carta(int valor, String palo, Tipo tipo) throws NoEnLaBaraja {
         if (valor <= 0) {
@@ -47,7 +48,7 @@ public class Carta {
     }
 
     /**
-     * Establece el valor de la carta.
+     * Sets the value of the card
      * @param valor El numero de la carta
      */
     public void setValor(int valor) {
@@ -55,7 +56,7 @@ public class Carta {
     }
 
     /**
-     * Devuelve el valor de la carta.
+     * Gets the value of the card
      * @return
      */
     public int getValor() {
@@ -63,7 +64,7 @@ public class Carta {
     }
 
     /**
-     * Establece el palo de la carta.
+     * Sets the suit of the card
      * @param palo El palo a establecer.
      */
     public void setPalo(String palo) {
@@ -71,7 +72,7 @@ public class Carta {
     }
 
     /**
-     * Consigue el palo actual, Devuelve un String.
+     * Gets the suit of the card
      * @return El String del Palo
      */
     public String getPalo() {
@@ -79,7 +80,7 @@ public class Carta {
     }
 
     /**
-     * Establece el tipo de la carta.
+     * Sets the type of the card
      * @param tipo El Tipo de la Carta
      */
     public void setTipo(Tipo tipo) {
@@ -88,7 +89,7 @@ public class Carta {
     }
 
     /**
-     * Consigue el tipo de la carta
+     * Gets the type of the card
      * @return el tipo de la carta
      */
     public Tipo getTipo() {
@@ -96,8 +97,8 @@ public class Carta {
     }
 
     /**
-     * Devuelve el string de la carta (Valor/Palo)
-     * @return El String
+     * Returns the string of the card
+     * @return the String
      */
     public String toString() {
         String string = "";
@@ -132,11 +133,36 @@ public class Carta {
     }
 
     /**
-     * Comprueba si una carta es igual a esta carta.
+     * Checks if a card is equal to this card
      * @param carta La carta a comparar
      * @return si es igual o no.
      */
     public boolean equals(Carta carta) {
         return (valor == carta.getValor() && palo.equals(carta.getPalo()) && tipo == carta.getTipo());
+    }
+
+    /**
+     * Clones the current Carta object.
+     *
+     * @return A new Carta object with the same properties as the current one.
+     * @throws RuntimeException if the Carta cannot be created due to a NoEnLaBaraja exception.
+     */
+    public Carta clone() {
+        try {
+            return new Carta(valor, palo, tipo);
+        } catch (NoEnLaBaraja e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    /**
+     * Checks if the value of this card is equal to the value of the given card.
+     *
+     * @param carta The card to compare with.
+     * @return true if the values are equal, false otherwise.
+     */
+    public boolean equalsNumber(Carta carta) {
+        return (valor == carta.getValor());
     }
 }
