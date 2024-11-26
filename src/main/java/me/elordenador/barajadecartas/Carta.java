@@ -1,6 +1,9 @@
 package me.elordenador.barajadecartas;
 
 import me.elordenador.barajadecartas.exceptions.NoEnLaBaraja;
+import me.elordenador.barajadecartas.tipos.Alemana;
+import me.elordenador.barajadecartas.tipos.Espanola;
+import me.elordenador.barajadecartas.tipos.Poker;
 
 /**
  * Clase para manejar las cartas de los juegos
@@ -49,7 +52,7 @@ public class Carta {
 
     /**
      * Sets the value of the card
-     * @param valor El numero de la carta
+     * @param valor value to set
      */
     public void setValor(int valor) {
         this.valor = valor;
@@ -57,7 +60,7 @@ public class Carta {
 
     /**
      * Gets the value of the card
-     * @return
+     * @return card's value
      */
     public int getValor() {
         return valor;
@@ -65,7 +68,7 @@ public class Carta {
 
     /**
      * Sets the suit of the card
-     * @param palo El palo a establecer.
+     * @param palo the suit to set
      */
     public void setPalo(String palo) {
         this.palo = palo;
@@ -73,7 +76,7 @@ public class Carta {
 
     /**
      * Gets the suit of the card
-     * @return El String del Palo
+     * @return Suit's name
      */
     public String getPalo() {
         return palo;
@@ -81,7 +84,7 @@ public class Carta {
 
     /**
      * Sets the type of the card
-     * @param tipo El Tipo de la Carta
+     * @param tipo The type to set
      */
     public void setTipo(Tipo tipo) {
         this.tipo = tipo;
@@ -90,7 +93,7 @@ public class Carta {
 
     /**
      * Gets the type of the card
-     * @return el tipo de la carta
+     * @return the type
      */
     public Tipo getTipo() {
         return tipo;
@@ -134,8 +137,8 @@ public class Carta {
 
     /**
      * Checks if a card is equal to this card
-     * @param carta La carta a comparar
-     * @return si es igual o no.
+     * @param carta The card to compare
+     * @return if the cards are equal
      */
     public boolean equals(Carta carta) {
         return (valor == carta.getValor() && palo.equals(carta.getPalo()) && tipo == carta.getTipo());
@@ -167,5 +170,60 @@ public class Carta {
             return false;
         }
         return (valor == carta.getValor());
+    }
+
+    /**
+     * Checks if the suit of this card is equal to the suit of the given card.
+     *
+     * @param carta The card to compare with.
+     * @return true if the suits are equal, false otherwise.
+     */
+    public boolean equalsPalo(Carta carta) {
+        if (carta == null) {
+            return false;
+        }
+        return (palo.equals(carta.getPalo()));
+    }
+
+    /**
+     * Compares this card with the given card to determine if this card is greater.
+     *
+     * @param carta The card to compare with.
+     * @return true if this card is greater than the given card, false otherwise.
+     */
+    public boolean mayorQue(Carta carta) {
+
+        if (carta == null) return false;
+
+        if (valor > carta.getValor()) {
+            return true;
+        } else if (valor < carta.getValor()) {
+            return false;
+        } else {
+            if (tipo == Tipo.ESPANOLA || tipo == Tipo.ESPANOLA_EXTENDIDA) {
+                if (Espanola.getN(palo) > Espanola.getN(carta.getPalo())) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            if (tipo == Tipo.POKER) {
+                if (Poker.getN(palo) > Poker.getN(carta.getPalo())) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            }
+            if (tipo == Tipo.ALEMANA) {
+                if (Alemana.getN(palo) > Alemana.getN(carta.getPalo())) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        return false;
     }
 }
