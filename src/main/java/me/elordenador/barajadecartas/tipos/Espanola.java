@@ -53,4 +53,20 @@ public class Espanola {
             default: return 0;
         }
     }
+
+    /**
+     * Returns the suit of the card as a string corresponding to the given numerical value.
+     *
+     * @param i The numerical value of the suit.
+     * @return A string representing the suit: "Oros" for 4, "Bastos" for 3, "Espadas" for 2, "Copas" for 1, and null for any other value.
+     */
+    public static String getPalo(int i) {
+        switch (i) {
+            case 4: return OROS;
+            case 3: return BASTOS;
+            case 2: return ESPADAS;
+            case 1: return COPAS;
+            default: return null;
+        }
+    }
 }

@@ -59,4 +59,20 @@ public class Poker {
             default: return 0;
         }
     }
+
+    /**
+     * Returns the suit of the card as a string corresponding to the given numerical value.
+     *
+     * @param n The numerical value of the suit.
+     * @return A string representing the suit: "Picas" for 4, "Corazones" for 3, "Treboles" for 2, "Diamantes" for 1, and null for any other value.
+     */
+    public static String getPalo(int n) {
+        switch (n) {
+            case 4: return PICAS;
+            case 3: return CORAZONES;
+            case 2: return TREBOLES;
+            case 1: return DIAMANTES;
+            default: return null;
+        }
+    }
 }
