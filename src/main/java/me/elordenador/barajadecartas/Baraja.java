@@ -3,6 +3,7 @@ package me.elordenador.barajadecartas;
 import me.elordenador.barajadecartas.exceptions.NoEnLaBaraja;
 import me.elordenador.barajadecartas.tipos.Alemana;
 import me.elordenador.barajadecartas.tipos.Espanola;
+import me.elordenador.barajadecartas.tipos.Poker;
 
 public class Baraja {
 
@@ -22,7 +23,7 @@ public class Baraja {
     private void initializeCards() throws NoEnLaBaraja {
         if (tipo == Tipo.ESPANOLA) {
             for (int i = 0; i < 4; i++) {
-                String palo = Espanola.getPalo(i);
+                String palo = Espanola.getPalo(i+1);
                 for (int o = 0; o < 10; o++) {
                     int n = o + 1;
                     if (o >= 7) {
@@ -39,17 +40,24 @@ public class Baraja {
                 for (int o = 0; o < 12; o++) {
                     int n = o + 1;
                     mazo[i][o] = new Carta(n, palo, tipo);
-                    System.out.println(mazo[i][o].toString());
                 }
             }
         }
         if (tipo == Tipo.ALEMANA) {
             for (int i = 0; i < 4; i++) {
-                String palo = Alemana.getPalo(i);
+                String palo = Alemana.getPalo(i+1);
                 for (int o = 0; o < 9; o++) {
                     int n = o + 6;
                     mazo[i][o] = new Carta(n, palo, tipo);
-                    System.out.println(mazo[i][o].toString());
+                }
+            }
+        }
+
+        if (tipo == Tipo.POKER) {
+            for (int i = 0; i < 4; i++) {
+                String palo = Poker.getPalo(i+1);
+                for (int o = 0; o < 12; o++) {
+                    mazo[i][o] = new Carta(o+1, palo, tipo); // 1-13
                 }
             }
         }
@@ -69,5 +77,14 @@ public class Baraja {
         if (tipo == Tipo.ESPANOLA_EXTENDIDA) {
             mazo = new Carta[4][12];
         }
+    }
+
+    /**
+     * Returns the deck of cards (mazo) as a 2D array.
+     *
+     * @return A 2D array of Carta objects representing the deck of cards.
+     */
+    public Carta[][] getMazo() {
+        return mazo;
     }
 }

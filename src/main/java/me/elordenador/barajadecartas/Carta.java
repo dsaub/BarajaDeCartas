@@ -33,7 +33,7 @@ public class Carta {
         if (tipo == Tipo.ESPANOLA && valor >= 8 && valor <= 9) {
             throw new NoEnLaBaraja("La carta " + valor + " no esta en la baraja");
         }
-        if(tipo == Tipo.ALEMANA && valor > 9) {
+        if(tipo == Tipo.ALEMANA && valor > 14) {
             throw new NoEnLaBaraja("La carta " + valor + " no esta en la baraja");
         }
         if ((tipo == Tipo.ESPANOLA_EXTENDIDA || tipo == Tipo.ESPANOLA) && valor > 12) {
@@ -129,6 +129,7 @@ public class Carta {
                 case 12: string += "Dama "; break;
                 case 13: string += "Rey "; break;
                 case 14: string += "As "; break;
+                default: string += valor + " "; break;
             }
             string += palo;
         }
