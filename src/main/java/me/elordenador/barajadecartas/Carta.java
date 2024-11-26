@@ -1,6 +1,9 @@
 package me.elordenador.barajadecartas;
 
 import me.elordenador.barajadecartas.exceptions.NoEnLaBaraja;
+import me.elordenador.barajadecartas.tipos.Alemana;
+import me.elordenador.barajadecartas.tipos.Espanola;
+import me.elordenador.barajadecartas.tipos.Poker;
 
 /**
  * Clase para manejar las cartas de los juegos
@@ -180,5 +183,47 @@ public class Carta {
             return false;
         }
         return (palo.equals(carta.getPalo()));
+    }
+
+    /**
+     * Compares this card with the given card to determine if this card is greater.
+     *
+     * @param carta The card to compare with.
+     * @return true if this card is greater than the given card, false otherwise.
+     */
+    public boolean mayorQue(Carta carta) {
+
+        if (carta == null) return false;
+
+        if (valor > carta.getValor()) {
+            return true;
+        } else if (valor < carta.getValor()) {
+            return false;
+        } else {
+            if (tipo == Tipo.ESPANOLA || tipo == Tipo.ESPANOLA_EXTENDIDA) {
+                if (Espanola.getN(palo) > Espanola.getN(carta.getPalo())) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            if (tipo == Tipo.POKER) {
+                if (Poker.getN(palo) > Poker.getN(carta.getPalo())) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            }
+            if (tipo == Tipo.ALEMANA) {
+                if (Alemana.getN(palo) > Alemana.getN(carta.getPalo())) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        return false;
     }
 }

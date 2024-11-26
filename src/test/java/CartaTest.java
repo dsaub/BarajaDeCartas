@@ -158,4 +158,24 @@ public class CartaTest {
         Carta carta1 = new Carta(6, Espanola.OROS, Tipo.ESPANOLA);
         assertEquals(false, carta1.equalsNumber(null));
     }
+
+    @Test
+    public void equalsPaloReturnsTrueForEqualSuits() throws NoEnLaBaraja {
+        Carta carta1 = new Carta(6, Espanola.OROS, Tipo.ESPANOLA);
+        Carta carta2 = new Carta(7, Espanola.OROS, Tipo.ESPANOLA);
+        assertEquals(true, carta1.equalsPalo(carta2));
+    }
+
+    @Test
+    public void equalsPaloReturnsFalseForDifferentSuits() throws NoEnLaBaraja {
+        Carta carta1 = new Carta(6, Espanola.OROS, Tipo.ESPANOLA);
+        Carta carta2 = new Carta(7, Espanola.ESPADAS, Tipo.ESPANOLA);
+        assertEquals(false, carta1.equalsPalo(carta2));
+    }
+
+    @Test
+    public void equalsPaloReturnsFalseForNullCard() throws NoEnLaBaraja {
+        Carta carta1 = new Carta(6, Espanola.OROS, Tipo.ESPANOLA);
+        assertEquals(false, carta1.equalsPalo(null));
+    }
 }
