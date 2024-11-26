@@ -64,4 +64,20 @@ public class Alemana {
             default: return 0;
         }
     }
+
+    /**
+     * Returns the suit of the card as a string corresponding to the given numerical value.
+     *
+     * @param n The numerical value of the suit.
+     * @return A string representing the suit: "Campanas" for 4, "Corazones" for 3, "Pastos" for 2, "Bellotas" for 1, and null for any other value.
+     */
+    public static String getPalo(int n) {
+        switch (n) {
+            case 4: return CAMPANAS;
+            case 3: return CORAZONES;
+            case 2: return PASTOS;
+            case 1: return BELLOTAS;
+            default: return null;
+        }
+    }
 }
