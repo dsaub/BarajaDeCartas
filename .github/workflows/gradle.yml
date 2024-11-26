@@ -86,5 +86,17 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
           javadoc-branch: 'javadoc'
           java-version: 17
-          target-folder: '.'
+          target-folder: 'nightly/'
+          project: gradle
+  deploy_devel_javadocs:
+    name: Deploy Development JavaDocs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Development javadocs
+        uses: MathieuSoysal/Javadoc-publisher.yml@v2.5.0
+        with:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          javadoc-branch: 'javadoc'
+          java-version: 17
+          target-folder: 'development/'
           project: gradle
