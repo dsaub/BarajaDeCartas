@@ -153,8 +153,7 @@ public class BarajaTest {
         Baraja baraja = new Baraja(Tipo.POKER);
         baraja.siguiente();
         baraja.siguiente();
-        Carta[] deck = baraja.getBaraja();
-        assertEquals(50, deck.length);
+        assertEquals(50, baraja.numCartas());
     }
 
     @Test

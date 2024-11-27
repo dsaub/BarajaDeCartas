@@ -164,12 +164,22 @@ public class Baraja {
      */
     public Carta siguiente() {
         Carta carta = null;
-
-        for (int contadorx = 0; contadorx < mazo.length; contadorx++) {
-            for (int contadory = 0; contadory < mazo[contadorx].length; contadory++) {
-                if (mazo[contadorx][contadory] != null) {
-                    carta = mazo[contadorx][contadory];
-                    mazo[contadorx][contadory] = null;
+        int contadorx = 0;
+        int contadory = 0;
+        boolean encontrado = false;
+        while (!encontrado) {
+            if (mazo[contadorx][contadory] != null) {
+                carta = mazo[contadorx][contadory];
+                mazo[contadorx][contadory] = null;
+                encontrado = true;
+            } else {
+                contadory++;
+                if (contadory >= mazo[contadorx].length) {
+                    contadory = 0;
+                    contadorx++;
+                }
+                if (contadorx >= mazo.length) {
+                    break;
                 }
             }
         }
