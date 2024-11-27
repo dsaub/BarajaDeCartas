@@ -166,6 +166,32 @@ public class BarajaTest {
         }
     }
 
+    @Test
+    public void toStringReturnsNonEmptyStringForNonEmptyDeck() throws NoEnLaBaraja {
+        Baraja baraja = new Baraja(Tipo.POKER);
+        String deckString = baraja.toString();
+        assertNotNull(deckString);
+        assertFalse(deckString.isEmpty());
+    }
+
+    @Test
+    public void toStringReturnsEmptyStringForEmptyDeck() throws NoEnLaBaraja {
+        Baraja baraja = new Baraja(Tipo.POKER);
+        for (int i = 0; i < 52; i++) {
+            baraja.siguiente();
+        }
+        String deckString = baraja.toString();
+        assertEquals("[]", deckString);
+    }
+
+    @Test
+    public void toStringReturnsCorrectStringRepresentation() throws NoEnLaBaraja {
+        Baraja baraja = new Baraja(Tipo.POKER);
+        String deckString = baraja.toString();
+        Carta[] deck = baraja.getBaraja();
+        assertEquals(Arrays.toString(deck), deckString);
+    }
+
 
 
 }

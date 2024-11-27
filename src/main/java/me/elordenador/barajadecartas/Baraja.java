@@ -196,4 +196,14 @@ public class Baraja {
         return baraja;
     }
 
+    /**
+     * Returns a string representation of the deck of cards (mazo).
+     *
+     * @return A string representation of the deck of cards.
+     */
+    public String toString() {
+        Carta[] newMazo = getBaraja();
+        return newMazo.toString();
+    }
+
 }
