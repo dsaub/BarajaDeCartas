@@ -93,7 +93,7 @@ public class Baraja {
         if (tipo == Tipo.POKER) {
             for (int i = 0; i < 4; i++) {
                 String palo = Poker.getPalo(i+1);
-                for (int o = 0; o < 12; o++) {
+                for (int o = 0; o < 13; o++) {
                     mazo[i][o] = new Carta(o+1, palo, tipo); // 1-13
                 }
             }
