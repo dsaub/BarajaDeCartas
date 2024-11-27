@@ -35,36 +35,26 @@ public class BarajaTest {
     @Test
     public void initializeCardsCreatesCorrectNumberOfCardsForEspanola() throws NoEnLaBaraja {
         Baraja baraja = new Baraja(Tipo.ESPANOLA);
-        assertEquals(40, countCards(baraja));
+        assertEquals(40, baraja.count());
     }
 
     @Test
     public void initializeCardsCreatesCorrectNumberOfCardsForAlemana() throws NoEnLaBaraja {
         Baraja baraja = new Baraja(Tipo.ALEMANA);
-        assertEquals(36, countCards(baraja));
+        assertEquals(36, baraja.count());
     }
 
     @Test
     public void initializeCardsCreatesCorrectNumberOfCardsForPoker() throws NoEnLaBaraja {
         Baraja baraja = new Baraja(Tipo.POKER);
-        assertEquals(52, countCards(baraja));
+        assertEquals(52, baraja.count());
     }
 
     @Test
     public void initializeCardsCreatesCorrectNumberOfCardsForEspanolaExtendida() throws NoEnLaBaraja {
         Baraja baraja = new Baraja(Tipo.ESPANOLA_EXTENDIDA);
-        assertEquals(48, countCards(baraja));
+        assertEquals(48, baraja.count());
     }
 
-    private int countCards(Baraja baraja) {
-        int count = 0;
-        for (Carta[] fila : baraja.getMazo()) {
-            for (Carta carta : fila) {
-                if (carta != null) {
-                    count++;
-                }
-            }
-        }
-        return count;
-    }
+
 }

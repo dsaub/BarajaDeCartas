@@ -10,6 +10,19 @@ public class Baraja {
     public static void main(String[] args) throws NoEnLaBaraja {
         Baraja baraja = new Baraja(Tipo.ESPANOLA);
         Baraja baraja2 = new Baraja(Tipo.ALEMANA);
+        Baraja baraja3 = new Baraja(Tipo.POKER);
+        int n_cartas = baraja3.count();
+        System.out.println(n_cartas);
+    }
+
+    public int count() {
+        int count = 0;
+        for (int i = 0; i < mazo.length; i++) {
+            for (int j = 0; j < mazo[i].length; j++) {
+                count++;
+            }
+        }
+        return count;
     }
 
     private Carta[][] mazo;
