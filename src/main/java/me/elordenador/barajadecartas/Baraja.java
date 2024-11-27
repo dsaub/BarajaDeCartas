@@ -7,15 +7,20 @@ import me.elordenador.barajadecartas.tipos.Poker;
 
 import java.util.Arrays;
 
+/**
+ * Represents a deck of cards.
+ * This class can shuffle the deck, deal cards, and return the number of cards in the deck.
+ * @version 1.0
+ * @since 1.0
+ * @see Carta
+ * @see Tipo
+ * @see me.elordenador.barajadecartas.tipos.Espanola
+ * @see me.elordenador.barajadecartas.tipos.Alemana
+ * @see me.elordenador.barajadecartas.tipos.Poker
+ * @see me.elordenador.barajadecartas.exceptions.NoEnLaBaraja
+ * @author Daniel Sánchez Úbeda
+ */
 public class Baraja {
-
-    public static void main(String[] args) throws NoEnLaBaraja {
-        Baraja baraja = new Baraja(Tipo.ESPANOLA);
-        Baraja baraja2 = new Baraja(Tipo.ALEMANA);
-        Baraja baraja3 = new Baraja(Tipo.POKER);
-        int n_cartas = baraja3.numCartas();
-        System.out.println(n_cartas);
-    }
 
     /**
      * Counts the total number of cards in the deck (mazo).
