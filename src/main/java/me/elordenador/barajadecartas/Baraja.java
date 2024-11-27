@@ -54,10 +54,14 @@ public class Baraja {
      * @param tipo The type of deck of cards.
      * @throws NoEnLaBaraja if the deck type is not recognized.
      */
-    public Baraja(Tipo tipo) throws NoEnLaBaraja {
+    public Baraja(Tipo tipo) {
         this.tipo = tipo;
         initializeArray();
-        reiniciar();
+        try {
+            reiniciar();
+        } catch (NoEnLaBaraja e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

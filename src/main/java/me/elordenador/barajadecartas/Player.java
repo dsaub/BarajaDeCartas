@@ -12,7 +12,7 @@ public class Player {
     /**
      * The number of points the player has.
      */
-    private int points;
+    private double points;
 
     /**
      * The name of the player.
@@ -41,7 +41,7 @@ public class Player {
      * @param playername The name of the player.
      * @param points The number of points the player has.
      */
-    public Player(String playername, int points) {
+    public Player(String playername, double points) {
         this.points = points;
         this.playername = playername;
     }
@@ -50,7 +50,7 @@ public class Player {
      * Sets the number of points the player has.
      * @param points The number of points to set.
      */
-    public void setPoints(int points) {
+    public void setPoints(double points) {
         this.points = points;
     }
 
@@ -58,7 +58,7 @@ public class Player {
      * Gets the number of points the player has.
      * @return The number of points the player has.
      */
-    public int getPoints() {
+    public double getPoints() {
         return points;
     }
 
