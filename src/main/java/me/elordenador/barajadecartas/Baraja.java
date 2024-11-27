@@ -100,4 +100,32 @@ public class Baraja {
     public Carta[][] getMazo() {
         return mazo;
     }
+
+    /**
+     * Shuffles the deck of cards (mazo) by randomly rearranging the cards.
+     * This method creates a new shuffled deck and replaces the current deck with it.
+     */
+    public void barajar() {
+        Carta[][] nuevomazo = new Carta[mazo.length][mazo[0].length];
+        for (int i = 0; i < mazo.length; i++) {
+            for (int j = 0; j < mazo[i].length; j++) {
+                boolean salida = false;
+                while (!salida) {
+                    int x = (int) (Math.random() * mazo.length);
+                    int y = (int) (Math.random() * mazo[x].length);
+
+                    if (nuevomazo[x][y] == null) {
+                        nuevomazo[x][y] = mazo[i][j];
+                        salida = true;
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < mazo.length; i++) {
+            for (int j = 0; j < mazo[i].length; j++) {
+                mazo[i][j] = nuevomazo[i][j];
+            }
+        }
+    }
 }
