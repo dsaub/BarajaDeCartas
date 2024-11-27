@@ -11,29 +11,53 @@ public class Baraja {
         Baraja baraja = new Baraja(Tipo.ESPANOLA);
         Baraja baraja2 = new Baraja(Tipo.ALEMANA);
         Baraja baraja3 = new Baraja(Tipo.POKER);
-        int n_cartas = baraja3.count();
+        int n_cartas = baraja3.numCartas();
         System.out.println(n_cartas);
     }
 
-    public int count() {
+    /**
+     * Counts the total number of cards in the deck (mazo).
+     *
+     * @return The total number of cards in the deck.
+     */
+    public int numCartas() {
         int count = 0;
         for (int i = 0; i < mazo.length; i++) {
             for (int j = 0; j < mazo[i].length; j++) {
-                count++;
+                if (mazo[i][j] != null) {
+                    count++;
+                }
             }
         }
         return count;
     }
-
+    /**
+     * Represents the type of deck of cards.
+     */
     private Carta[][] mazo;
+
+    /**
+     * Represents the type of deck of cards.
+     */
     private Tipo tipo;
+
+    /**
+     * Constructor for the Baraja class.
+     *
+     * @param tipo The type of deck of cards.
+     * @throws NoEnLaBaraja if the deck type is not recognized.
+     */
     public Baraja(Tipo tipo) throws NoEnLaBaraja {
         this.tipo = tipo;
         initializeArray();
-        initializeCards();
+        reiniciar();
     }
 
-    private void initializeCards() throws NoEnLaBaraja {
+    /**
+     * Initializes the deck of cards (mazo) based on the type of deck.
+     * @throws NoEnLaBaraja
+     */
+    public void reiniciar() throws NoEnLaBaraja {
         if (tipo == Tipo.ESPANOLA) {
             for (int i = 0; i < 4; i++) {
                 String palo = Espanola.getPalo(i+1);
@@ -76,7 +100,9 @@ public class Baraja {
         }
     }
 
-
+    /**
+     * Initializes the deck of cards (mazo) based on the type of deck.
+     */
     private void initializeArray() {
         if (tipo == Tipo.ESPANOLA) {
             mazo = new Carta[4][10];
@@ -128,4 +154,26 @@ public class Baraja {
             }
         }
     }
+
+    /**
+     * Retrieves the next card from the deck (mazo) and removes it from the deck.
+     *
+     * @return The next Carta object from the deck, or null if the deck is empty.
+     */
+    public Carta siguiente() {
+        Carta carta = null;
+
+        for (int contadorx = 0; contadorx < mazo.length; contadorx++) {
+            for (int contadory = 0; contadory < mazo[contadorx].length; contadory++) {
+                if (mazo[contadorx][contadory] != null) {
+                    carta = mazo[contadorx][contadory];
+                    mazo[contadorx][contadory] = null;
+                }
+            }
+        }
+
+        return carta;
+
+    }
+
 }

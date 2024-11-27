@@ -35,25 +35,25 @@ public class BarajaTest {
     @Test
     public void initializeCardsCreatesCorrectNumberOfCardsForEspanola() throws NoEnLaBaraja {
         Baraja baraja = new Baraja(Tipo.ESPANOLA);
-        assertEquals(40, baraja.count());
+        assertEquals(40, baraja.numCartas());
     }
 
     @Test
     public void initializeCardsCreatesCorrectNumberOfCardsForAlemana() throws NoEnLaBaraja {
         Baraja baraja = new Baraja(Tipo.ALEMANA);
-        assertEquals(36, baraja.count());
+        assertEquals(36, baraja.numCartas());
     }
 
     @Test
     public void initializeCardsCreatesCorrectNumberOfCardsForPoker() throws NoEnLaBaraja {
         Baraja baraja = new Baraja(Tipo.POKER);
-        assertEquals(52, baraja.count());
+        assertEquals(52, baraja.numCartas());
     }
 
     @Test
     public void initializeCardsCreatesCorrectNumberOfCardsForEspanolaExtendida() throws NoEnLaBaraja {
         Baraja baraja = new Baraja(Tipo.ESPANOLA_EXTENDIDA);
-        assertEquals(48, baraja.count());
+        assertEquals(48, baraja.numCartas());
     }
 
 
