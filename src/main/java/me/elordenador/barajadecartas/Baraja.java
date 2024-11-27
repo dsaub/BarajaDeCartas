@@ -5,6 +5,8 @@ import me.elordenador.barajadecartas.tipos.Alemana;
 import me.elordenador.barajadecartas.tipos.Espanola;
 import me.elordenador.barajadecartas.tipos.Poker;
 
+import java.util.Arrays;
+
 public class Baraja {
 
     public static void main(String[] args) throws NoEnLaBaraja {
@@ -203,7 +205,7 @@ public class Baraja {
      */
     public String toString() {
         Carta[] newMazo = getBaraja();
-        return newMazo.toString();
+        return Arrays.toString(newMazo);
     }
 
 }
