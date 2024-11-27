@@ -4,8 +4,10 @@ import me.elordenador.barajadecartas.Tipo;
 import me.elordenador.barajadecartas.exceptions.NoEnLaBaraja;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.util.Arrays;
+import java.util.Comparator;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BarajaTest {
     @Test
@@ -56,6 +58,113 @@ public class BarajaTest {
         assertEquals(48, baraja.numCartas());
     }
 
+    @Test
+    public void barajarShufflesDeckCorrectly() throws NoEnLaBaraja {
+        Baraja baraja = new Baraja(Tipo.POKER);
+        Carta[] originalDeck = baraja.getBaraja().clone();
+        baraja.barajar();
+        Carta[] shuffledDeck = baraja.getBaraja();
+        assertNotEquals(originalDeck, shuffledDeck);
+    }
+
+    @Test
+    public void barajarMaintainsSameNumberOfCards() throws NoEnLaBaraja {
+        Baraja baraja = new Baraja(Tipo.POKER);
+        int originalCount = baraja.numCartas();
+        baraja.barajar();
+        int shuffledCount = baraja.numCartas();
+        assertEquals(originalCount, shuffledCount);
+    }
+
+    @Test
+    public void barajarDoesNotLoseAnyCards() throws NoEnLaBaraja {
+        Baraja baraja = new Baraja(Tipo.POKER);
+        Carta[] originalDeck = baraja.getBaraja().clone();
+        baraja.barajar();
+        Carta[] shuffledDeck = baraja.getBaraja();
+        Arrays.sort(originalDeck, Comparator.comparing(Carta::toString));
+        Arrays.sort(shuffledDeck, Comparator.comparing(Carta::toString));
+        assertArrayEquals(originalDeck, shuffledDeck);
+    }
+
+    @Test
+    public void barajarWorksForEmptyDeck() throws NoEnLaBaraja {
+        Baraja baraja = new Baraja(Tipo.POKER);
+        for (int i = 0; i < 52; i++) {
+            baraja.siguiente();
+        }
+        baraja.barajar();
+        assertEquals(0, baraja.numCartas());
+    }
+
+    @Test
+    public void siguienteReturnsNextCard() throws NoEnLaBaraja {
+        Baraja baraja = new Baraja(Tipo.POKER);
+        Carta nextCard = baraja.siguiente();
+        assertNotNull(nextCard);
+    }
+
+    @Test
+    public void siguienteRemovesCardFromDeck() throws NoEnLaBaraja {
+        Baraja baraja = new Baraja(Tipo.POKER);
+        int originalCount = baraja.numCartas();
+        baraja.siguiente();
+        int newCount = baraja.numCartas();
+        assertEquals(originalCount - 1, newCount);
+    }
+
+    @Test
+    public void siguienteReturnsNullWhenDeckIsEmpty() throws NoEnLaBaraja {
+        Baraja baraja = new Baraja(Tipo.POKER);
+        for (int i = 0; i < 52; i++) {
+            baraja.siguiente();
+        }
+        Carta nextCard = baraja.siguiente();
+        assertNull(nextCard);
+    }
+
+    @Test
+    public void siguienteReturnsCardsInOrder() throws NoEnLaBaraja {
+        Baraja baraja = new Baraja(Tipo.POKER);
+        Carta firstCard = baraja.siguiente();
+        Carta secondCard = baraja.siguiente();
+        assertNotEquals(firstCard, secondCard);
+    }
+
+    @Test
+    public void getBarajaReturnsAllCardsInDeck() throws NoEnLaBaraja {
+        Baraja baraja = new Baraja(Tipo.POKER);
+        Carta[] deck = baraja.getBaraja();
+        assertEquals(52, deck.length);
+    }
+
+    @Test
+    public void getBarajaReturnsEmptyArrayWhenDeckIsEmpty() throws NoEnLaBaraja {
+        Baraja baraja = new Baraja(Tipo.POKER);
+        for (int i = 0; i < 52; i++) {
+            baraja.siguiente();
+        }
+        Carta[] deck = baraja.getBaraja();
+        assertEquals(0, deck.length);
+    }
+
+    @Test
+    public void getBarajaReturnsCorrectCardsAfterSomeAreDrawn() throws NoEnLaBaraja {
+        Baraja baraja = new Baraja(Tipo.POKER);
+        baraja.siguiente();
+        baraja.siguiente();
+        Carta[] deck = baraja.getBaraja();
+        assertEquals(50, deck.length);
+    }
+
+    @Test
+    public void getBarajaReturnsCardsInCorrectOrder() throws NoEnLaBaraja {
+        Baraja baraja = new Baraja(Tipo.POKER);
+        Carta[] deck = baraja.getBaraja();
+        for (int i = 0; i < deck.length - 1; i++) {
+            assertNotEquals(deck[i], deck[i + 1]);
+        }
+    }
 
 
 

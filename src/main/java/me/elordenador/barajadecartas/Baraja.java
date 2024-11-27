@@ -176,4 +176,24 @@ public class Baraja {
 
     }
 
+    /**
+     * Returns the deck of cards (mazo) as a 1D array.
+     *
+     * @return An array of Carta objects representing the deck of cards.
+     */
+    public Carta[] getBaraja() {
+        Carta[] baraja = new Carta[numCartas()];
+        int contador = 0;
+        for (int i = 0; i < mazo.length; i++) {
+            for (int j = 0; j < mazo[i].length; j++) {
+                if (mazo[i][j] != null) {
+                    baraja[contador] = mazo[i][j];
+                    contador++;
+                }
+            }
+        }
+
+        return baraja;
+    }
+
 }
