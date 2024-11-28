@@ -7,13 +7,33 @@ version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    maven {
+        url  = uri("https://elordenador.me/repository/")
+    }
+    maven {
+        url = uri("https://oss.sonatype.org/content/groups/public")
+    }
 }
 
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'me.elordenador:ScreenUtils:1.0-SNAPSHOT'
+    implementation 'org.yaml:snakeyaml:2.4-SNAPSHOT'
+    implementation 'mysql:mysql-connector-java:8.0.33'
 }
 
 test {
     useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'me.elordenador.barajadecartas.client.Menu'
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }

@@ -1,6 +1,10 @@
-package me.elordenador.barajadecartas;
+package me.elordenador.barajadecartas.client;
 
-import java.util.ArrayList;
+import me.elordenador.barajadecartas.Baraja;
+import me.elordenador.barajadecartas.Carta;
+import me.elordenador.barajadecartas.Tipo;
+import me.elordenador.screenutils.ScrUtils;
+
 import java.util.Scanner;
 
 public class SieteYMedio {
@@ -60,16 +64,19 @@ public class SieteYMedio {
             System.out.println("Error al introducir el tipo de baraja, Seleccionando la española");
             baraja = new Baraja(Tipo.ESPANOLA);
         }
+        baraja.barajar();
 
 
         salida = false;
+        String winner = "";
 
         // Inicio del bucle del juego
         int posTurno = 0;
         while (!salida) {
+            ScrUtils.clearScreen();
             Player turno = players[posTurno];
 
-            if (turno != null) {
+            if (!turno.getLost() && !turno.getRajado()) {
                 System.out.println("Turno de " + turno.getPlayername());
                 System.out.println("Puntos: " + turno.getPoints());
 
@@ -99,21 +106,82 @@ public class SieteYMedio {
                 turno.setPoints(turno.getPoints() + puntosQueDa);
 
                 System.out.println("Total de puntos: " + turno.getPoints());
-                System.out.println("¿Te deseas rajar? [y:N]: ");
-                try {
-                    String rajar = sc.nextLine().toLowerCase();
-                    if (rajar.equals("y")) {
-                        System.out.println("El jugador " + turno.getPlayername() + " se ha rajado");
-                        players[posTurno] = null;
-                    }
-                } catch (Exception e) {
-                    System.out.println("Error al introducir la respuesta, no te rajas");
-                }
 
-                if (turno.getPoints() >= 7.5) {
+                if (turno.getPoints() == 7.5) {
                     System.out.println("El jugador " + turno.getPlayername() + " ha ganado");
                     salida = true;
+                } else
+                if (turno.getPoints() > 7.5) {
+                    System.out.println("El jugador " + turno.getPlayername() + " ha perdido, rajandolo instantaneamente");
+                    players[posTurno].setLost(true);
                 }
+
+                else {
+                    int rajados = 0;
+                    int perdidos = 0;
+                    int vivos = 0;
+                    for (Player player: players) {
+                        if (player.getRajado()) rajados += 1;
+                        if (player.getLost()) perdidos += 1;
+                        if (!player.getLost() && !player.getRajado()) vivos += 1;
+                    }
+
+                    if (vivos == 1) {
+                        for (Player player : players) {
+                            if (!player.getLost() && !player.getRajado()) {
+                                winner = player.getPlayername();
+                                salida = true;
+                            }
+                        }
+                    }
+                     else if (rajados >= players.length) {
+                        System.out.println("Todos los jugadores se han rajado");
+                        Player[] n1 = Player.sort(players);
+                        boolean salida2 = false;
+                        int contador1 = 0;
+                        while (!salida2) {
+                            if (n1[contador1].getPoints() > 7.5) {
+                                contador1++;
+                            } else {
+                                winner = n1[contador1].getPlayername();
+                                salida2 = true;
+                            }
+                        }
+                    }
+                     else if (vivos == 0) {
+                         System.out.println("Todos rajados...");
+                            boolean salida2 = false;
+                            Player[] n1 = Player.sort(players);
+                            int contador1 = 0;
+                            while (!salida2) {
+                                if (n1[contador1].getPoints() > 7.5) {
+                                    contador1++;
+                                } else {
+                                    winner = n1[contador1].getPlayername();
+                                    salida2 = true;
+                                }
+                            }
+
+                    } else {
+                        System.out.println("¿Te deseas rajar? [y:N]: ");
+                        try {
+                            String rajar = sc.nextLine().toLowerCase();
+                            if (rajar.equals("y")) {
+                                System.out.println("El jugador " + turno.getPlayername() + " se ha rajado");
+                                players[posTurno].setRajado(true);
+                            }
+                        } catch (Exception e) {
+                            System.out.println("Error al introducir la respuesta, no te rajas");
+                        }
+                    }
+
+
+
+
+
+                }
+
+
 
             } else {
                 System.out.println("El usuario " + turno.getPlayername() + " se ha rajado de antes...");
@@ -127,6 +195,15 @@ public class SieteYMedio {
 
 
 
+        }
+
+
+        System.out.println("Ganador: " + winner);
+        for (Player player : players) {
+            System.out.print(player.getPlayername() + ": " + player.getPoints());
+            if (player.getRajado()) System.out.println(" [RAJADO]");
+            else if (player.getLost()) System.out.println(" [PERDIDO]");
+            else System.out.println();
         }
 
 

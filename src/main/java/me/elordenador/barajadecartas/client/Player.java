@@ -1,4 +1,4 @@
-package me.elordenador.barajadecartas;
+package me.elordenador.barajadecartas.client;
 
 
 /**
@@ -27,6 +27,9 @@ public class Player {
         this.playername = "";
     }
 
+    private boolean lost = false;
+    private boolean rajado = false;
+
     /**
      * Constructor for the Player class.
      * @param playername The name of the player.
@@ -44,6 +47,20 @@ public class Player {
     public Player(String playername, double points) {
         this.points = points;
         this.playername = playername;
+    }
+
+    public static Player[] sort(Player[] players) {
+        for (int i = 0; i < players.length; i++) {
+            for (int j = i + 1; j < players.length; j++) {
+                if (players[i].getPoints() < players[j].getPoints()) {
+                    Player temp = players[i];
+                    players[i] = players[j];
+                    players[j] = temp;
+                }
+            }
+        }
+
+        return players;
     }
 
     /**
@@ -76,5 +93,21 @@ public class Player {
      */
     public String getPlayername() {
         return playername;
+    }
+
+    public void setLost(boolean lost) {
+        this.lost = lost;
+    }
+
+    public boolean getLost() {
+        return lost;
+    }
+
+    public void setRajado(boolean rajado) {
+        this.rajado = rajado;
+    }
+
+    public boolean getRajado() {
+        return rajado;
     }
 }
