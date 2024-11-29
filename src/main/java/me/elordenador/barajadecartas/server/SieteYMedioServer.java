@@ -21,9 +21,16 @@ public class SieteYMedioServer {
     public static void main(String[] args) {
         try {
             instance = new SieteYMedioServer();
+            instance.run();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void run() throws IOException {
+        Conexion conexion = new Conexion(5007);
+
+        conexion.initialize();
     }
 
     public SieteYMedioServer() throws IOException {
@@ -47,9 +54,7 @@ public class SieteYMedioServer {
             throw new RuntimeException(e);
         }
         System.out.println("[+] Connected to database. Starting Server...");
-        Conexion conexion = new Conexion(5007);
 
-        conexion.initialize();
     }
 
     public Connection getConnection() {
