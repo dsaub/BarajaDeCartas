@@ -55,11 +55,17 @@ public class SieteMultiplayer {
             String pass = sc.nextLine();
             System.out.println(user + ":" + Cypher.toSHA256(pass));
             send(user + ":" + Cypher.toSHA256(pass));
+
+
             message = receive();
+            System.out.println(message);
 
         }
         if (message.equals("AUTHENTICATED")) {
             System.out.println("Conectado correctamente. Bienvenido!");
+        } else if (message.equals("NOT_AUTHENTICATED")) {
+            System.out.println("El usuario o la contraseña es incorrecto. Saliendo...");
+            System.exit(1);
         } else {
             System.out.println("Error al autenticar. Saliendo...");
             System.exit(1);
@@ -73,13 +79,21 @@ public class SieteMultiplayer {
         socket.close();
     }
 
-    public String receive() throws IOException {
-        String str = null;
-        while ((str = entrada.readLine()) != null) {
-
+    public String receive() {
+        try {
+            boolean salida = false;
+            String retur = null;
+            while (!salida) {
+                retur = entrada.readLine();
+                retur = retur.trim();
+                if (retur != null && !retur.equals("\n") && !retur.equals("")) {
+                    salida = true;
+                }
+            }
+            return retur.trim();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-
-        return str;
     }
 
     public void send(String message) {

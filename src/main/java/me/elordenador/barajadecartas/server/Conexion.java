@@ -24,7 +24,6 @@ public class Conexion {
         boolean salida = false;
         while (!salida) {
             cs = ss.accept();
-
             ServThread cliente = new ServThread(cs);
             cliente.setInstance(SieteYMedioServer.instance);
             cliente.start();
