@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"me.elordenador.barajadecartas"},{"l":"me.elordenador.barajadecartas.exceptions"},{"l":"me.elordenador.barajadecartas.tipos"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"me.elordenador.barajadecartas"},{"l":"me.elordenador.barajadecartas.client"},{"l":"me.elordenador.barajadecartas.exceptions"},{"l":"me.elordenador.barajadecartas.server"},{"l":"me.elordenador.barajadecartas.tipos"}];updateSearchResults();
