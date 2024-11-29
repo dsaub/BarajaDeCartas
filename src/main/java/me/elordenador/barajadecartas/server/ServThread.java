@@ -18,8 +18,11 @@ public class ServThread extends Thread {
     private String mensajeServidor;
     SieteYMedioServer instance;
 
-    public ServThread(Socket socket, SieteYMedioServer instance) {
+    public ServThread(Socket socket) {
         this.socket = socket;
+    }
+
+    public void setInstance(SieteYMedioServer instance) {
         this.instance = instance;
     }
 
@@ -33,7 +36,11 @@ public class ServThread extends Thread {
             throw new RuntimeException(e);
         }
 
-        mensajeServidor = receive();
+        try {
+            mensajeServidor = receive();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         System.out.println("[+] Client response: " + mensajeServidor);
         System.out.println("[+] Asking for registration");
@@ -45,12 +52,17 @@ public class ServThread extends Thread {
 
         send("REGISTER");
 
-        String credentials = receive();
+        String credentials = null;
+        try {
+            credentials = receive();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         System.out.println(credentials);
 
         System.out.println("[+] Got credentials from user " + credentials.split("\\:")[0] + ", validating...");
-        String username = credentials.split(":")[0];
-        String password = credentials.split(":")[1];
+        String username = credentials.split("\\:")[0];
+        String password = credentials.split("\\:")[1];
         Connection connection = instance.getConnection();
 
         PreparedStatement statement = null;
@@ -100,19 +112,13 @@ public class ServThread extends Thread {
         }
     }
 
-    private String receive() {
-        try {
-            boolean salida = false;
-            String retur = null;
-            while (!salida) {
-                retur = entrada.readLine();
-                if (retur != null && !retur.equals("\n")) {
-                    salida = true;
-                }
-            }
-            return retur.trim();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    public String receive() throws IOException {
+        String str = null;
+        while ((str = entrada.readLine()) != null) {
+
         }
-    }
+
+        return str;
+
+}
 }

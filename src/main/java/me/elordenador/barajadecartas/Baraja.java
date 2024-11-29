@@ -52,7 +52,6 @@ public class Baraja {
      * Constructor for the Baraja class.
      *
      * @param tipo The type of deck of cards.
-     * @throws NoEnLaBaraja if the deck type is not recognized.
      */
     public Baraja(Tipo tipo) {
         this.tipo = tipo;

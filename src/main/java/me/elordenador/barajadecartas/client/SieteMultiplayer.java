@@ -53,6 +53,7 @@ public class SieteMultiplayer {
             String user = sc.nextLine();
             System.out.print("Contraseña: ");
             String pass = sc.nextLine();
+            System.out.println(user + ":" + Cypher.toSHA256(pass));
             send(user + ":" + Cypher.toSHA256(pass));
             message = receive();
 
@@ -72,20 +73,13 @@ public class SieteMultiplayer {
         socket.close();
     }
 
-    public String receive() {
-        try {
-            boolean salida = false;
-            String retur = null;
-            while (!salida) {
-                retur = entrada.readLine();
-                if (retur != null && !retur.equals("\n")) {
-                    salida = true;
-                }
-            }
-            return retur.trim();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    public String receive() throws IOException {
+        String str = null;
+        while ((str = entrada.readLine()) != null) {
+
         }
+
+        return str;
     }
 
     public void send(String message) {
