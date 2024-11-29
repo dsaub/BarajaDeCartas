@@ -36,11 +36,8 @@ public class ServThread extends Thread {
             throw new RuntimeException(e);
         }
 
-        try {
-            mensajeServidor = receive();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
+        mensajeServidor = receive();
 
         System.out.println("[+] Client response: " + mensajeServidor);
         System.out.println("[+] Asking for registration");
@@ -53,12 +50,9 @@ public class ServThread extends Thread {
         send("REGISTER");
 
         String credentials = null;
-        try {
-            credentials = receive();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println(credentials);
+        credentials = receive();
+
+        credentials = credentials.substring(1, credentials.length());
 
         System.out.println("[+] Got credentials from user " + credentials.split("\\:")[0] + ", validating...");
         String username = credentials.split("\\:")[0];
@@ -112,13 +106,20 @@ public class ServThread extends Thread {
         }
     }
 
-    public String receive() throws IOException {
-        String str = null;
-        while ((str = entrada.readLine()) != null) {
-
+    public String receive() {
+        try {
+            boolean salida = false;
+            String retur = null;
+            while (!salida) {
+                retur = entrada.readLine();
+                retur = retur.trim();
+                if (retur != null && !retur.equals("\n") && !retur.equals("")) {
+                    salida = true;
+                }
+            }
+            return retur.trim();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-
-        return str;
-
-}
+    }
 }
