@@ -15,8 +15,12 @@ public class ServThread extends Thread {
     private BufferedReader entrada;
     private DataOutputStream salida;
 
+    private Player player;
+
     private String mensajeServidor;
     SieteYMedioServer instance;
+
+    private Integer connectionId = null;
 
     public ServThread(Socket socket) {
         this.socket = socket;
@@ -85,6 +89,9 @@ public class ServThread extends Thread {
             if (rs.next()) {
                 System.out.println("[+] User " + username + " authenticated successfully.");
                 send("AUTHENTICATED");
+                player = new Player("Player", socket);
+
+                gameloop();
             } else {
                 System.out.println("[+] User " + username + " not found.");
                 send("NOT_AUTHENTICATED");
@@ -94,6 +101,16 @@ public class ServThread extends Thread {
         }
 
 
+    }
+
+    private void gameloop() {
+
+        // Waiting for command...
+        String command = receive();
+        if (command.startsWith("CREATE_GAME")) {
+            String[] commandSplit = command.split("\\:");
+            Game game = new Game();
+        }
     }
 
     private void send(String message) {
