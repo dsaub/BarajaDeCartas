@@ -21,6 +21,7 @@ dependencies {
     implementation 'me.elordenador:ScreenUtils:1.0-SNAPSHOT'
     implementation 'org.yaml:snakeyaml:2.4-SNAPSHOT'
     implementation 'mysql:mysql-connector-java:8.0.33'
+    implementation 'me.elordenador:ValueUtils:1.1-SNAPSHOT'
 }
 
 test {

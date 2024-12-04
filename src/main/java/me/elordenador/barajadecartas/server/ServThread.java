@@ -15,17 +15,31 @@ public class ServThread extends Thread {
     private BufferedReader entrada;
     private DataOutputStream salida;
 
+    private Player player;
+
     private String mensajeServidor;
     SieteYMedioServer instance;
 
+    private Integer connectionId = null;
+
+    /**
+     * Creates the thread for the player
+     * @param socket The socket of the player
+     */
     public ServThread(Socket socket) {
         this.socket = socket;
     }
 
+    /**
+     * Sets the instance
+     */
     public void setInstance(SieteYMedioServer instance) {
         this.instance = instance;
     }
 
+    /**
+     * Runs the thread
+     */
     @Override
     public void run() {
         System.out.println("[+] Client connected... " + socket.getInetAddress().toString());
@@ -85,6 +99,9 @@ public class ServThread extends Thread {
             if (rs.next()) {
                 System.out.println("[+] User " + username + " authenticated successfully.");
                 send("AUTHENTICATED");
+                player = new Player("Player", socket);
+
+                gameloop();
             } else {
                 System.out.println("[+] User " + username + " not found.");
                 send("NOT_AUTHENTICATED");
@@ -94,6 +111,46 @@ public class ServThread extends Thread {
         }
 
 
+    }
+
+
+    private void gameloop() {
+
+        // Waiting for command...
+        String command = receive();
+        if (command.startsWith("CREATE_GAME")) {
+            String[] commandSplit = command.split("\\:");
+            Game game = new Game();
+            player.send(Integer.toString(game.getCode()));
+
+            game.addPlayer(player);
+            command = receive();
+            if (command.startsWith("START_GAME")) {
+                game.run();
+                try {
+                    game.join();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                
+            }
+        }
+        
+        if (command.startsWith("JOIN_GAME")) {
+            String[] commandSplit = command.split("\\:");
+            Game game = Games.instance.find(Integer.parseInt(commandSplit[1]));
+            game.addPlayer(player);
+            while (!game.isAlive()) {
+                System.out.println("NOT ALIVE YET");
+            } // Esperar a que el thread ejecute
+            try {
+                game.wait();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+
+        }
     }
 
     private void send(String message) {
