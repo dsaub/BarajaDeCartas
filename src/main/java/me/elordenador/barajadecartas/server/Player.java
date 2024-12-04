@@ -92,4 +92,10 @@ public class Player {
     public double getPuntos() {
         return puntos;
     }
+
+
+    public String getName() {
+        // TODO Auto-generated method stub
+        return player;
+    }
 }

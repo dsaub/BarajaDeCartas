@@ -4,6 +4,7 @@ import me.elordenador.barajadecartas.Cypher;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class SieteMultiplayer {
@@ -72,13 +73,62 @@ public class SieteMultiplayer {
         }
 
 
-
-
-
-
+        menu();
+        
+        
+        
+        
+        
+        
         socket.close();
+        
+    }
+        
+    private void menu() {
+        // TODO Auto-generated method stub
+        System.out.println("// Menu // \n" +
+                            "1. Crear una sala \n" +
+                            "2. Unirse a una sala \n");
+        int option = 0;
+        try {
+            option = sc.nextInt(); sc.nextLine();
+        } catch (InputMismatchException e) {
+            System.err.println("ERROR: Is not an integer. Exiting");
+        }
+        
+
+        switch (option) {
+            case 1: crear_sala(); break;
+            case 2: unirse_sala(); break;
+            default: System.exit(0);
+        }
     }
 
+    private void crear_sala() {
+        send("CREATE_GAME");
+        String code = receive();
+        System.out.println("Press Enter to start game, your code is "+ code);
+        sc.nextLine();
+        send("START_GAME");
+        game();
+    }
+
+    private void unirse_sala() {
+        int code = 0;
+        try {
+            code = sc.nextInt();
+        } catch (InputMismatchException e)  {
+            System.err.println("ERROR: No es un numero");
+            System.exit(51);
+        }
+
+
+        sc.nextLine();
+
+        send("JOIN_GAME:" + code);
+
+        game();
+    }
     public String receive() {
         try {
             boolean salida = false;
@@ -103,6 +153,29 @@ public class SieteMultiplayer {
             salidaServidor.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private void game() {
+        boolean salida = false;
+        String respuesta = null;
+        while (!salida) {
+            respuesta = receive();
+            salida = respuesta.equals("START");
+        }
+
+
+        salida = false;
+        while (!salida) {
+            respuesta = receive();
+            String[] splitedRespuesta = respuesta.split("\\:");
+            if (splitedRespuesta[0].equals("TURN")) {
+                System.out.println("Has recibido la carta " + splitedRespuesta[1]);
+                System.out.println("Ahora tienes " + splitedRespuesta[2] + " puntos");
+                System.out.println("¿Te quieres rajar? [y:N]");
+                String rajada = sc.nextLine();
+                send(rajada);
+            }
         }
     }
 }

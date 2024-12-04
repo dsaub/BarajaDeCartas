@@ -110,4 +110,8 @@ public class Player {
     public boolean getRajado() {
         return rajado;
     }
+
+    public String getName() {
+        return playername;
+    }
 }

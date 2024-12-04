@@ -28,7 +28,6 @@ public class Conexion {
             cliente.setInstance(SieteYMedioServer.instance);
             cliente.start();
             clientes.add(cliente);
-            Connections.instance.addClient(cliente);
         }
 
 

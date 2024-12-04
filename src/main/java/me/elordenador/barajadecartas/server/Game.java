@@ -8,10 +8,23 @@ import me.elordenador.valueutils.NumberUtils;
 import java.util.ArrayList;
 public class Game extends Thread {
     private ArrayList<Player> players = new ArrayList<Player>();
-    private int code = NumberUtils.generateRandomNumberOfDigits(6);
-
+    private int code = Games.instance.generateCode();
+    public Game() {
+        System.out.println("[+] Created game " + code);
+    }
     public void addPlayer(Player player) {
         players.add(player);
+        if (getPlayerCount() == 0) {
+            player.send("CODE:" + code);
+
+        }
+        System.out.println("[+] Player " + player.getName() + " joined game " + code);
+        System.out.print("  Now the players are: ");
+        for (Player player1 : players) {
+            System.out.print(player1.getName() + ", ");
+        }
+        System.out.println();
+        
     }
 
     public Player getPlayer(int i) {
@@ -37,7 +50,6 @@ public class Game extends Thread {
         while (!salida) {
             Player player = getPlayer(contador);
             if (!player.getRajado() && !player.getMuerto()) {
-                player.send("TURN");
                 Carta carta = baraja.siguiente();
 
                 if (carta.getTipo() == Tipo.ESPANOLA || carta.getTipo() == Tipo.ESPANOLA_EXTENDIDA) {
@@ -65,19 +77,22 @@ public class Game extends Thread {
                 }
 
 
-                player.send(carta.toString() + ":" + player.getPuntos());
+                player.send("TURN:" + carta.toString() + ":" + player.getPuntos());
                 String response = player.receive();
-                if (response.equals("N")) {
+                if (response.equals("Y")) {
                     player.rajar();
                 }
             }
-            player.send("TURN");
-            Carta carta = baraja.siguiente();
-            player.send(carta.toString());
-            String response = player.receive();
-            if (response.equals("Y")) {
-
+            contador += 1;
+            if (contador > getPlayerCount()) {
+                contador = 0;
             }
         }
+
+        
+    }
+
+    public int getCode() {
+        return code;
     }
 }
