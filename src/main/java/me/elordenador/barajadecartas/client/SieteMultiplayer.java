@@ -176,6 +176,9 @@ public class SieteMultiplayer {
                 String rajada = sc.nextLine();
                 send(rajada);
             }
+            if (splitedRespuesta[0].equals("MSG")) {
+                System.out.println(splitedRespuesta[1]);
+            }
         }
     }
 }

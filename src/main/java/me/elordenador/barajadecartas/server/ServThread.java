@@ -99,7 +99,7 @@ public class ServThread extends Thread {
             if (rs.next()) {
                 System.out.println("[+] User " + username + " authenticated successfully.");
                 send("AUTHENTICATED");
-                player = new Player("Player", socket);
+                player = new Player(username, socket);
 
                 gameloop();
             } else {
@@ -115,15 +115,15 @@ public class ServThread extends Thread {
 
 
     private void gameloop() {
-
+        System.out.print("[+] " + player.getName() + "Is now in the loop, Waiting for commands...");
         // Waiting for command...
         String command = receive();
         if (command.startsWith("CREATE_GAME")) {
-            String[] commandSplit = command.split("\\:");
             Game game = new Game();
             player.send(Integer.toString(game.getCode()));
 
             game.addPlayer(player);
+            Games.instance.addClient(game);
             command = receive();
             if (command.startsWith("START_GAME")) {
                 game.run();
@@ -139,15 +139,17 @@ public class ServThread extends Thread {
         if (command.startsWith("JOIN_GAME")) {
             String[] commandSplit = command.split("\\:");
             Game game = Games.instance.find(Integer.parseInt(commandSplit[1]));
-            game.addPlayer(player);
-            while (!game.isAlive()) {
-                System.out.println("NOT ALIVE YET");
-            } // Esperar a que el thread ejecute
-            try {
-                game.wait();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            if (game != null) {
+                game.addPlayer(player);
+                while (!game.isAlive()) {
+                } // Esperar a que el thread ejecute
+                try {
+                    game.wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
+            
 
 
         }
@@ -174,6 +176,7 @@ public class ServThread extends Thread {
                     salida = true;
                 }
             }
+            System.out.println(retur.trim());
             return retur.trim();
         } catch (IOException e) {
             throw new RuntimeException(e);
