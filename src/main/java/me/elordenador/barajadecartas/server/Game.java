@@ -3,7 +3,6 @@ package me.elordenador.barajadecartas.server;
 import me.elordenador.barajadecartas.Carta;
 import me.elordenador.barajadecartas.Tipo;
 import me.elordenador.barajadecartas.Baraja;
-import me.elordenador.valueutils.NumberUtils;
 
 import java.util.ArrayList;
 public class Game extends Thread {
@@ -14,10 +13,6 @@ public class Game extends Thread {
     }
     public void addPlayer(Player player) {
         players.add(player);
-        if (getPlayerCount() == 0) {
-            player.send("CODE:" + code);
-
-        }
         System.out.println("[+] Player " + player.getName() + " joined game " + code);
         System.out.print("  Now the players are: ");
         for (Player player1 : players) {
@@ -45,10 +40,11 @@ public class Game extends Thread {
         for (Player player : players) {
             player.send("START");
         }
-
+        sendMSGtoAll("=== INICIO DEL JUEGO ===");
         int contador = 0;
         while (!salida) {
             Player player = getPlayer(contador);
+            sendMSGtoAll("=== Turno del jugador " + player.getName() + " ===");
             if (!player.getRajado() && !player.getMuerto()) {
                 Carta carta = baraja.siguiente();
 
@@ -76,17 +72,28 @@ public class Game extends Thread {
                     }
                 }
 
-
+                sendMSGtoAll("! El jugador recibe la carta " + carta.toString() + " !");
                 player.send("TURN:" + carta.toString() + ":" + player.getPuntos());
                 String response = player.receive();
                 if (response.equals("Y")) {
+                    sendMSGtoAll("! El jugador " + player.getName() + " se ha rajado !");
                     player.rajar();
                 }
+
+                if (player.getPuntos() > 7.5) {
+                    sendMSGtoAll("! El jugador " + player.getName() + " ha muerto !, se ha pasado por " + (player.getPuntos() - 7.5) + " puntos !");
+                    player.matar();
+                }
+
             }
             contador += 1;
-            if (contador > getPlayerCount()) {
+            if (contador >= getPlayerCount()) {
                 contador = 0;
             }
+
+
+
+
         }
 
         
@@ -94,5 +101,11 @@ public class Game extends Thread {
 
     public int getCode() {
         return code;
+    }
+
+    public void sendMSGtoAll(String msg) {
+        for (Player player : players) {
+            player.sendMSG(msg);
+        }
     }
 }

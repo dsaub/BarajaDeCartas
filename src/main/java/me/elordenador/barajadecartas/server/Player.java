@@ -60,6 +60,7 @@ public class Player {
                     salida = true;
                 }
             }
+            System.out.println(retur.trim());
             return retur.trim();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -97,5 +98,9 @@ public class Player {
     public String getName() {
         // TODO Auto-generated method stub
         return player;
+    }
+
+    public void sendMSG(String msg) {
+        send("MSG:"+msg);
     }
 }

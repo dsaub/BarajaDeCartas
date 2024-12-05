@@ -24,5 +24,7 @@ public class Menu {
             e.printStackTrace();
             System.exit(1);
         }
+
+        sc.close();
     }
 }

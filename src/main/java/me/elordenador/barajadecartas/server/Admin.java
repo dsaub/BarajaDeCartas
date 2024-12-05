@@ -48,6 +48,7 @@ public class Admin {
                     System.out.println("Invalid option");
                     break;
             }
+            sc.close();
 
 
 
@@ -55,6 +56,7 @@ public class Admin {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        
     }
 }
 
@@ -74,6 +76,7 @@ public class Admin {
             e.printStackTrace();
         }
         connection.commit();
+        sc.close();
     }
 
     private static void createUser(Connection connection) throws SQLException {
@@ -105,6 +108,7 @@ public class Admin {
             e.printStackTrace();
         }
         connection.commit();
+        sc.close();
     }
 
     private static void printUsers(Connection connection) throws SQLException {

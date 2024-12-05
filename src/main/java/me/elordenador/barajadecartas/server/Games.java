@@ -38,17 +38,18 @@ public class Games {
 
     public Game find(int int1) {
         Game game = null;
-
-        boolean salida = false;
-        int code = 0;
-        while (!salida) {
-            for (Game game1 : clientes) {
-                if (game1.getCode() == int1) {
-                    game = game1;
-                    salida = true;
-                }
+        System.out.println("[+] Searching game " + int1);
+        for (Game game1 : clientes) {
+            if (game1.getCode() == int1) {
+                game = game1;
             }
         }
+        if (game != null) {
+            System.out.println("[+] Game found");
+        } else {
+            System.out.println("[+] We cannot find a game");
+        }
+        
         return game;
     }
 }
