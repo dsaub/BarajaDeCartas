@@ -103,4 +103,15 @@ public class Player {
     public void sendMSG(String msg) {
         send("MSG:"+msg);
     }
+
+
+    public void disconnect() {
+        // TODO Auto-generated method stub
+        try {
+            socket.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 }

@@ -175,9 +175,10 @@ public class SieteMultiplayer {
                 System.out.println("¿Te quieres rajar? [y:N]");
                 String rajada = sc.nextLine();
                 send(rajada);
-            }
-            if (splitedRespuesta[0].equals("MSG")) {
+            } else if (splitedRespuesta[0].equals("MSG")) {
                 System.out.println(splitedRespuesta[1]);
+            } else if (splitedRespuesta[0].equals("EXIT")) {
+                System.exit(Integer.parseInt(splitedRespuesta[1]));
             }
         }
     }
