@@ -92,6 +92,83 @@ public class Game extends Thread {
             }
 
 
+            // Checkeo de ganar o no ganar para jugadores
+
+            // Un jugador ha llegado a 7.5 puntos
+            for (Player player1 : players) {
+                if (player1.getPuntos() == 7.5) {
+                    sendMSGtoAll("--- GANADOR: " + player1.getName() + " ---");
+                    salida = true;
+                    for (Player player2 : players) {
+                        player2.send("EXIT:0");
+                        player2.disconnect();
+                    }
+                }
+            }
+
+            if (!salida) {
+                // Continuaremos si la condición anterior ha funcionado
+
+                // Checkeo de si todos los jugadores se han rajado
+                int cantidadJugadores = players.size();
+                int cantidadRajada = 0;
+                for (Player player1 : players) {
+                    if (player1.getRajado()) {
+                        cantidadRajada += 1;
+                    }
+                }
+
+                if (cantidadRajada == cantidadJugadores) {
+                    // Se han rajado todos los jugadores, procediendo a comprobar cual es el que mas se acerca.
+
+                    double maximoPuntos = 0;
+                    Player jugadorLider = null; 
+
+                    for (Player player1 : players) {
+                        if (player1.getPuntos() > maximoPuntos && player1.getPuntos() <= 7.5) {
+                            maximoPuntos = player1.getPuntos();
+                            jugadorLider = player1;
+                        }
+                    }
+
+                    sendMSGtoAll("--- GANADOR: " + jugadorLider.getName() + " --- ");
+                    salida = true;
+                    for (Player player1 : players) {
+                        player1.send("EXIT:0");
+                        player1.disconnect();
+                    }
+                }
+            }
+
+            if (!salida) {
+                // Si los anteriores no se han ejecutado...
+                int cantidadJugadores = players.size();
+                int cantidadMuertos = 0;
+                for (Player player1 : players) {
+                    if (player1.getMuerto()) {
+                        cantidadMuertos += 1;
+                    }
+                }
+
+                if (cantidadMuertos == cantidadJugadores) {
+                    double puntosJ = Double.MAX_VALUE;
+                    Player jugadorLider = null;
+                    for (Player player1 : players) {
+                        if (player1.getPuntos() < puntosJ) {
+                            puntosJ = player1.getPuntos();
+                            jugadorLider = player1;
+                        }
+                    }
+                    salida = true;
+
+                    sendMSGtoAll("--- GANADOR: " + jugadorLider.getName() + " ---");
+                    for (Player player1 : players) {
+                        player1.send("EXIT:0");
+                        player1.disconnect();
+                    }
+                }
+            }
+
 
 
         }
