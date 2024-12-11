@@ -1,0 +1,9 @@
+CREATE DATABASE IF NOT EXISTS barajamultiplayer;
+
+USE barajamultiplayer;
+
+CREATE TABLE User (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
