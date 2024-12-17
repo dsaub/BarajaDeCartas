@@ -34,7 +34,8 @@ public class SieteMultiplayer {
             System.out.println("PORT: ");
             PORT = sc.nextInt(); sc.nextLine();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            System.err.println("No hay texto en el puerto");
+            System.exit(13);
         }
 
         connect(HOST, PORT);
@@ -175,7 +176,7 @@ public class SieteMultiplayer {
                 System.out.println("¿Te quieres rajar? [y:N]");
                 String rajada = sc.nextLine();
                 send(rajada);
-            } else if (splitedRespuesta[0].equals("MSG")) {
+            } else if (splitedRespuesta[0].endsWith("MSG")) {
                 System.out.println(splitedRespuesta[1]);
             } else if (splitedRespuesta[0].equals("EXIT")) {
                 System.exit(Integer.parseInt(splitedRespuesta[1]));
