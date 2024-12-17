@@ -74,8 +74,8 @@ public class Game extends Thread {
 
                 sendMSGtoAll("! El jugador recibe la carta " + carta.toString() + " !");
                 player.send("TURN:" + carta.toString() + ":" + player.getPuntos());
-                String response = player.receive();
-                if (response.equals("Y")) {
+                String response = player.receive().toLowerCase();
+                if (response.equals("y")) {
                     sendMSGtoAll("! El jugador " + player.getName() + " se ha rajado !");
                     player.rajar();
                 }
@@ -167,6 +167,36 @@ public class Game extends Thread {
                         player1.disconnect();
                     }
                 }
+            }
+
+            if (!salida) {
+                // No se han cumplido las anteriores, comprobando si la cantidad de jugadores estan muertos y/o rajados
+
+                int cantidadJugadores = players.size();
+                int cantidadMuertos = 0;
+                int cantidadRajados = 0;
+                for (Player player1 : players) {
+                    if (player1.getMuerto()) cantidadMuertos++;
+                    if (player1.getRajado()) cantidadRajados++;
+                }
+
+                if (cantidadJugadores == cantidadMuertos + cantidadRajados) {
+                    sendMSGtoAll("¡Rajada completa!");
+                    double maxPuntos = 0;
+                    Player winningPlayer = null;
+                    for (Player player2 : players) {
+                        if (player2.getRajado()) {
+                            if (player2.getPuntos() > maxPuntos && player2.getPuntos() <= 7.5) {
+                                maxPuntos = player2.getPuntos();
+                                winningPlayer = player2;
+                            }
+                        }
+
+                        sendMSGtoAll("¡Ha ganado " + winningPlayer.getName() + " por estar mas cerca del 7 y medio");
+                        salida = true;
+                    }
+                }
+
             }
 
 
